@@ -8,7 +8,7 @@ from django.views.generic import(
     UpdateView,
     DeleteView
 )
-from .models import post
+from .models import post, announcement
 
 def home(request):
     context = {
@@ -72,3 +72,11 @@ class PostDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'about'})
+
+def announcement(request):
+    return render(request, 'blog/announcements.html', {'title': 'announcements'})
+
+class announcementView(ListView):
+    model = announcement
+    template_name = 'blog/announcement.html' # <app>/<model>_<viewtype>.html
+    context_object_name = 'announcements'

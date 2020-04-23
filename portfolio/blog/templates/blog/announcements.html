@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<article class="media content-section">
+    {% if announcement %}
+        {% for post in announcement %} 
+            <div class="media-body">
+            <h2>{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+            <h1> No New Announcements </h1>
+    {% endif %}
+    </article>
+{% endblock %}

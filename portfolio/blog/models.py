@@ -15,3 +15,9 @@ class post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
+class announcement(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title
