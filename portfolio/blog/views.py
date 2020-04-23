@@ -16,6 +16,12 @@ def home(request):
     }
     return render(request, 'blog/home.html', context)
 
+def announcements(request):
+    latest_announcement_list = announcement.objects.all()
+    context = {
+        "announcement": latest_announcement_list,
+    }
+    return render(request, 'blog/announcements.html', context)
 
 class PostListView(ListView):
     model = post
@@ -72,11 +78,3 @@ class PostDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'about'})
-
-def announcement(request):
-    return render(request, 'blog/announcements.html', {'title': 'announcements'})
-
-class announcementView(ListView):
-    model = announcement
-    template_name = 'blog/announcement.html' # <app>/<model>_<viewtype>.html
-    context_object_name = 'announcements'

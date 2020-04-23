@@ -4,12 +4,19 @@
     {% if announcement %}
         {% for post in announcement %} 
             <div class="media-body">
-            <h2>{{ post.title }}</h2>
-            <p class="article-content">{{ post.content }}</p>
+                <div class="article-metadata">
+                    <h2 class="article-title">{{ post.title }}</h2>
+                    <small class="text-muted">{{ post.date_posted|date:"d  F  Y" }}</small>
+                </div>
+                    <p class="article-content">{{ post.content }}</p>
             </div>
         {% endfor %}
     {% else %}
-            <h1> No New Announcements </h1>
+    <div class="media-body">
+        <div class="article-metadata">
+            <h2 class="article-title"> No New Announcements </h2>
+        </div>
+    </div>
     {% endif %}
     </article>
 {% endblock %}
