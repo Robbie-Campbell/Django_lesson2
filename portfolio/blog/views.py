@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import( 
@@ -11,10 +12,14 @@ from django.views.generic import(
 from .models import post, announcement
 
 def home(request):
+
+    posts = post.objects.all()
     context = {
-        "posts": post.objects.all()
+        "posts" : posts
     }
+     
     return render(request, 'blog/home.html', context)
+
 
 def announcements(request):
     latest_announcement_list = announcement.objects.all()
@@ -78,3 +83,19 @@ class PostDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'about'})
+
+class SearchView(ListView):
+    model = post
+    template_name = 'blog/search.html'
+    context_object_name = 'all_search_results'
+
+    def get_queryset(self):
+        result = super(SearchView, self).get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+          postresult = post.objects.filter(title__contains=query,
+                                           content__contains=query)
+          result = postresult
+        else:
+           result = None
+        return result

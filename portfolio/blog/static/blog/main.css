@@ -90,5 +90,15 @@ body {
   }
   .sidebar{
     color: #333;
+    opacity: 0.8;
     text-decoration: none;
+  }
+  .sidebar:hover{
+    opacity: 1;
+    color: #333
+  }
+
+  .search-bar{
+    max-width: 500px;
+    width:100%;
   }
